@@ -1,25 +1,44 @@
-import logo from './logo.svg';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Add from "./Add";
+import Update from "./Update";
+import View from "./View";
 import './App.css';
 
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const [books, setBooks] = useState([]);
+
+const getBooks = () => {
+    axios.get("http://localhost:3000/myBooks").then((res) => {
+        setBooks(res.data);
+    });
+};
+
+useEffect(() => {
+    getBooks();
+
+
+}, [books]);
+
+return (
+<div className="books">
+    <Add books={books} setBooks={setBooks} />
+    {books.map((item) => {
+        return (
+            <div className="book">
+                <View item={item} />
+                <Update id={item.id} books={books} setBooks={setBooks} item={item} />
+            </div>
+
+        );
+    })}
+
+    
+</div>
+
+);
+
 }
 
 export default App;
