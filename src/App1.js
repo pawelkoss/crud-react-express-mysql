@@ -1,25 +1,57 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import { Container, Button, Row } from 'react-bootstrap';
+import axios from 'axios';
 
-function App() {
+const FunctionBasedComponent = () => {
+  const [ users, setUsers ] = useState([]);
+  const [ showDetails, setShowDetails ] = useState(false);
+
+  const fetchUsers = async () => {
+    const response = await axios.get(`https://jsonplaceholder.typicode.com/users`);
+
+    setUsers(response.data);
+    console.log("call");
+  };
+
+  useEffect( () => { 
+    fetchUsers(); 
+  }, [  ] );
+
+  const handleClick = event => { setShowDetails(!showDetails) };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Container>
+      {
+        users.map((user) => (
+          <ul key={ user.id }>
+            <li>
+              <strong>{ user.name }</strong>
+              <div>
+                <Button
+                  onClick={ handleClick }
+                >
+                  { showDetails ? "Close Additional Info" : "More Info"  }
+              </Button>
+               { showDetails &&
+                 <Container className="additional-info">
+                   <Row>
+                     { `Email: ${ user.email }` }
+                   </Row>
+                   <Row>
+                     { `Phone: ${ user.phone }` }
+                   </Row>
+                   <Row>
+                     { `Website: ${ user.website }` }
+                   </Row>
+                 </Container>
+               }
+              </div>
+            </li>
+          </ul>
+        ))
+      }
+    </Container>
+  )
 }
 
-export default App;
+export default FunctionBasedComponent;

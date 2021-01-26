@@ -1,11 +1,13 @@
 export default function View(props) {
     return (
         <>
-            <h5>Title: {props.item.title}</h5>
-            <h5>Author: {props.item.author}</h5>
-            <h5>Pages: {props.item.pages}</h5>
-            <h5>Rating: {props.item.rating}</h5>
-        </>
+            <td>{props.item.id}</td>
+            <td>{props.item.title}</td>
+            <td>{props.item.author}</td>
+            <td>{props.item.pages}</td>
+            <td>{props.item.rating}</td>
+         </>   
+        
 
     );
 }
