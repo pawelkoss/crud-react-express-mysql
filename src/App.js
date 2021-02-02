@@ -8,29 +8,6 @@ import View from "./View";
 import Delete from "./Delete";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function ModalEdit(props) {
-    // {...props} -> show={props.show} onHide={props.onHide} item={props.item}
-    return (
-    <Modal {...props} >
-    <Modal.Header closeButton>
-      <Modal.Title>Modal heading</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-        <p>tytuł: {props.item.title}</p>
-        <p>autor: {props.item.author}</p>
-        <p>stars: {props.item.rating}</p>
-    </Modal.Body>
-    <Modal.Footer>
-      <Button variant="secondary" onClick={props.onHide}>
-        Close
-      </Button>
-      <Button variant="primary" onClick={props.onHide}>
-        Save Changes
-      </Button>
-    </Modal.Footer>
-  </Modal> 
-    );
-  }
 
 function App() {
 const [books, setBooks] = useState([]);
@@ -40,17 +17,12 @@ const [modalShow, setModalShow] = useState(false);  // ModalEdit
 const [modalData, setModalData] = useState({});
 
 const handleCloseEdit = () => setShowEdit(false);
-const handleShowEdit = () => setShowEdit(true);
-const handleShowEdit2 = (item) => {
+// const handleShowEdit = () => setShowEdit(true); // to del
+const handleShowEdit = (item) => {
     setModalData(item);
     setShowEdit(true);
 }
 
-
-const modalShowData = (item) => {
-    setModalData(item);
-    setModalShow(true);
-}
 
 const getBooks = () => {
     setLoading(true);
@@ -81,7 +53,7 @@ const elementView = () => {
         return (
             <tr key={item.id}>
             <View item={item} /> 
-            <td><Icon.PencilSquare color="royalblue" onClick={() => handleShowEdit2(item)} /> <ModalEdit item={modalData} show={modalShow} onHide={() => setModalShow(false)} />  <Delete id={item.id} books={books} setBooks={setBooks} getBooks={getBooks} /> <button onClick={() => delBook(item.id)} >X</button></td>
+            <td><Icon.PencilSquare color="royalblue" onClick={() => handleShowEdit(item)} />  <Delete id={item.id} books={books} setBooks={setBooks} getBooks={getBooks} /> <button onClick={() => delBook(item.id)} >X</button></td>
             </tr>);
         })
         //  onClick={() => modalShowData(item)} onClick={handleShowEdit} onClick={() => handleShowEdit2()}
