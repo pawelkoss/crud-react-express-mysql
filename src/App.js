@@ -87,17 +87,11 @@ return(
     
   <Modal show={showEdit} onHide={handleCloseEdit} >
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Update book</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!....... {modalData.title}</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseEdit}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleCloseEdit}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
+        <Modal.Body>
+            <Update item={modalData} books={books} setBooks={setBooks} getBooks={getBooks} onClickHide={handleCloseEdit}/>
+        </Modal.Body>
       </Modal>  
 </Container>
 
