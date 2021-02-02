@@ -53,7 +53,7 @@ const elementView = () => {
         return (
             <tr key={item.id}>
             <View item={item} /> 
-            <td><Icon.PencilSquare color="royalblue" onClick={() => handleShowEdit(item)} />  <Delete id={item.id} books={books} setBooks={setBooks} getBooks={getBooks} /> <button onClick={() => delBook(item.id)} >X</button></td>
+            <td><Icon.PencilSquare color="royalblue" onClick={() => handleShowEdit(item)} />  <Delete id={item.id} books={books} setBooks={setBooks} getBooks={getBooks} /></td>
             </tr>);
         })
         //  onClick={() => modalShowData(item)} onClick={handleShowEdit} onClick={() => handleShowEdit2()}
